@@ -1,0 +1,178 @@
+!<arch>
+__.PKGDEF       0           0     0     644     10599     `
+go object windows amd64 go1.5.2 X:none
+build id "7caf10e3dbd2dcaf19c8b8badd1d015aa2a380c4"
+
+$$
+package test
+	import runtime "runtime"
+	import fmt "fmt"
+	import db "github/sola/db"
+	import time "time"
+	import bson "gopkg.in/mgo.v2/bson"
+	import rand "math/rand"
+	type @"time".zone struct { @"time".name string; @"time".offset int; @"time".isDST bool }
+	type @"time".zoneTrans struct { @"time".when int64; @"time".index uint8; @"time".isstd bool; @"time".isutc bool }
+	type @"time".Location struct { @"time".name string; @"time".zone []@"time".zone; @"time".tx []@"time".zoneTrans; @"time".cacheStart int64; @"time".cacheEnd int64; @"time".cacheZone *@"time".zone }
+	func (@"time".lÂ·2 *@"time".Location "esc:0x22") String () (? string)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x1") @"time".firstZoneUsed () (? bool)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x12") @"time".get () (? *@"time".Location)
+	func (@"time".lÂ·6 *@"time".Location "esc:0x32") @"time".lookup (@"time".secÂ·7 int64) (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".isDSTÂ·3 bool, @"time".startÂ·4 int64, @"time".endÂ·5 int64)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x1") @"time".lookupFirstZone () (? int)
+	func (@"time".lÂ·4 *@"time".Location "esc:0x1") @"time".lookupName (@"time".nameÂ·5 string "esc:0x1", @"time".unixÂ·6 int64) (@"time".offsetÂ·1 int, @"time".isDSTÂ·2 bool, @"time".okÂ·3 bool)
+	type @"time".Duration int64
+	func (@"time".dÂ·2 @"time".Duration) Hours () (? float64) { var @"time".hourÂ·3 @"time".Duration; ; @"time".hourÂ·3 = @"time".dÂ·2 / @"time".Duration(0x34630b8a000); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x34630b8a000); return float64(@"time".hourÂ·3) + float64(@"time".nsecÂ·4) * 8190022623310637111963488201822504381538623676021880892417778544696899264837610290203272971060556344039023584360473938041055625214280336402169897364226048p-553 }
+	func (@"time".dÂ·2 @"time".Duration) Minutes () (? float64) { var @"time".minÂ·3 @"time".Duration; ; @"time".minÂ·3 = @"time".dÂ·2 / @"time".Duration(0xdf8475800); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0xdf8475800); return float64(@"time".minÂ·3) + float64(@"time".nsecÂ·4) * 7678146209353722106395056769533233877065564876941352542109479049699919628723768656821910653339403201031675627614471533358284117434246264392176261853609984p-547 }
+	func (@"time".dÂ·2 @"time".Duration) Nanoseconds () (? int64) { return int64(@"time".dÂ·2) }
+	func (@"time".dÂ·2 @"time".Duration) Seconds () (? float64) { var @"time".secÂ·3 @"time".Duration; ; @"time".secÂ·3 = @"time".dÂ·2 / @"time".Duration(0x3b9aca00); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x3b9aca00); return float64(@"time".secÂ·3) + float64(@"time".nsecÂ·4) * 7198262071269114660816079141112770740375861891461678802759824945047098083990024106014198994535558872472104883612039846078596891298747423852523262413111296p-541 }
+	func (@"time".dÂ·2 @"time".Duration) String () (? string)
+	type @"time".Month int
+	func (@"time".mÂ·2 @"time".Month) String () (? string) { return @"time".months[@"time".mÂ·2 - @"time".Month(0x1)] }
+	type @"time".Weekday int
+	func (@"time".dÂ·2 @"time".Weekday) String () (? string) { return @"time".days[@"time".dÂ·2] }
+	type @"time".Time struct { @"time".sec int64; @"time".nsec int32; @"time".loc *@"time".Location }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Add (@"time".dÂ·3 @"time".Duration) (? @"time".Time) { @"time".tÂ·2.@"time".sec += int64(@"time".dÂ·3 / @"time".Duration(0x3b9aca00)); var @"time".nsecÂ·4 int32; ; @"time".nsecÂ·4 = int32(@"time".tÂ·2.@"time".nsec) + int32(@"time".dÂ·3 % @"time".Duration(0x3b9aca00)); if @"time".nsecÂ·4 >= 0x3b9aca00 { @"time".tÂ·2.@"time".sec++; @"time".nsecÂ·4 -= 0x3b9aca00 } else { if @"time".nsecÂ·4 < 0x0 { @"time".tÂ·2.@"time".sec--; @"time".nsecÂ·4 += 0x3b9aca00 } }; @"time".tÂ·2.@"time".nsec = @"time".nsecÂ·4; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") AddDate (@"time".yearsÂ·3 int, @"time".monthsÂ·4 int, @"time".daysÂ·5 int) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") After (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec > @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec > @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") AppendFormat (@"time".bÂ·3 []byte "esc:0x1a", @"time".layoutÂ·4 string "esc:0x9") (? []byte)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Before (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec < @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec < @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") Clock () (@"time".hourÂ·1 int, @"time".minÂ·2 int, @"time".secÂ·3 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") Date () (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Day () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Equal (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec == @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") Format (@"time".layoutÂ·3 string "esc:0x9") (? string)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") GobDecode (@"time".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") GobEncode () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Hour () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") ISOWeek () (@"time".yearÂ·1 int, @"time".weekÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") In (@"time".locÂ·3 *@"time".Location "esc:0x12") (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") IsZero () (? bool) { return @"time".tÂ·2.@"time".sec == 0x0 && @"time".tÂ·2.@"time".nsec == 0x0 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Local () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".Local; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Location () (? *@"time".Location) { var @"time".lÂ·3 *@"time".Location; ; @"time".lÂ·3 = @"time".tÂ·2.@"time".loc; if @"time".lÂ·3 == nil { @"time".lÂ·3 = @"time".UTC }; return @"time".lÂ·3 }
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") MarshalBinary () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x9") MarshalJSON () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x9") MarshalText () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Minute () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Month () (? @"time".Month)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Nanosecond () (? int) { return int(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Round (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Second () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") String () (? string)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Sub (@"time".uÂ·3 @"time".Time "esc:0x1") (? @"time".Duration)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Truncate (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") UTC () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".UTC; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Unix () (? int64) { return @"time".tÂ·2.@"time".sec + -0xe7791f700 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") UnixNano () (? int64) { return (@"time".tÂ·2.@"time".sec + -0xe7791f700) * 0x3b9aca00 + int64(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalBinary (@"time".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalJSON (@"time".dataÂ·3 []byte "esc:0x1") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalText (@"time".dataÂ·3 []byte "esc:0x1") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Weekday () (? @"time".Weekday)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Year () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") YearDay () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x32") Zone () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") @"time".abs () (? uint64)
+	func (@"time".tÂ·5 @"time".Time "esc:0x1") @"time".date (@"time".fullÂ·6 bool) (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int, @"time".ydayÂ·4 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x32") @"time".locabs () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".absÂ·3 uint64)
+	type @"gopkg.in/mgo.v2/bson".ObjectId string
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId) Counter () (? int32)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId "esc:0x1") Hex () (? string)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId) Machine () (? []byte)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·3 @"gopkg.in/mgo.v2/bson".ObjectId) MarshalJSON () (? []byte, ? error)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·3 @"gopkg.in/mgo.v2/bson".ObjectId) MarshalText () (? []byte, ? error)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId) Pid () (? uint16)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId) String () (? string)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId) Time () (? @"time".Time)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 *@"gopkg.in/mgo.v2/bson".ObjectId "esc:0x1") UnmarshalJSON (@"gopkg.in/mgo.v2/bson".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 *@"gopkg.in/mgo.v2/bson".ObjectId "esc:0x1") UnmarshalText (@"gopkg.in/mgo.v2/bson".dataÂ·3 []byte) (? error)
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId "esc:0x1") Valid () (? bool) { return len(@"gopkg.in/mgo.v2/bson".idÂ·2) == 0xc }
+	func (@"gopkg.in/mgo.v2/bson".idÂ·2 @"gopkg.in/mgo.v2/bson".ObjectId) @"gopkg.in/mgo.v2/bson".byteSlice (@"gopkg.in/mgo.v2/bson".startÂ·3 int, @"gopkg.in/mgo.v2/bson".endÂ·4 int) (? []byte)
+	type @"".ColResult struct { ID @"gopkg.in/mgo.v2/bson".ObjectId "bson:\"_id,omitempty\""; X int; Time @"time".Time "bson:\"timestamp\""; TimeUnit string; Name string "bson:\"type\"" }
+	func @"".DB_Mongo_Run ()
+	func @"".CheckError (@"".errÂ·1 error)
+	func @"".init ()
+	var @"time".months [12]string
+	var @"time".days [7]string
+	var @"time".Local *@"time".Location
+	var @"time".UTC *@"time".Location
+
+$$
+ _go_.o          0           0     0     644     24397     `
+go object windows amd64 go1.5.2 X:none
+
+!
+  go13ld
+fmt.a github/sola/db.a,gopkg.in/mgo.v2/bson.amath/rand.atime.a ş"".DB_Mongo_Run  €  âeH‹%(   H‹‰    H„$èşÿÿH;A†E  Hì˜  HÇ$Ğ  è    H‹\$H‰\$8è    H‹$H‰œ$à   ‹\$‰œ$è   H‹\$H‰œ$ğ   è    H‹$‹L$H‹D$H‰”$È   H‰$‰Œ$Ğ   ‰L$H‰„$Ø   H‰D$H    H‰\$HÇD$    è    H‹T$(H‹L$0H¼$ø   1ÀHƒÇğè    H‹\$8H‰œ$  H    H‰œ$8  HÇ„$@     H‹œ$à   H‰œ$  ‹œ$è   ‰œ$  H‹œ$ğ   H‰œ$   H‰”$(  H‰Œ$0  H´$ø   H¼$H  è    H    H‰$è    H‹\$Hƒû „ğ  HÇ„$       HÇ„$¨      H‰œ$˜   H    H‰$Hœ$H  H‰\$HÇD$    è    H‹L$H‹D$ H‹œ$˜   H‰L$pH‰H‰D$x€=     …g  H‰CH‹œ$˜   H‰$H‹œ$    H‰\$H‹œ$¨   H‰\$è    H‹L$H‹D$ H‰L$PH‰$H‰D$XH‰D$è    H    H‰$è    H‹\$H‰\$HH    H‰$è    H‹D$Hƒø „Ö  H‹\$H1Ò1ÉH‰”$ˆ   H‰SH‰Œ$   H‰KH‰„$€   €=     …  H‰1ÛH‰$H‰\$è    H‹\$H‰\$@H‹\$H‰\$Ç$   H    H‰D$è    ƒø …7  H‹D$HH‹L$@H‰$H    H‰L$pH‰L$H‰D$xH‰D$è    H‹\$HH‹+H‰¬$°   H‹kH‰¬$¸   H‹kH‰¬$À   1ÛH‰\$`H‰\$hH\$`Hƒû „¿   HÇ„$       HÇ„$¨      H‰œ$˜   H    H‰$Hœ$°   H‰\$HÇD$    è    H‹L$H‹D$ H‹œ$˜   H‰L$pH‰H‰D$x€=     u=H‰CH‹œ$˜   H‰$H‹œ$    H‰\$H‹œ$¨   H‰\$è    è    HÄ˜  ÃLCL‰$H‰D$è    ë³‰é:ÿÿÿè    HÄ˜  ÃH‰$H‰D$è    écşÿÿ‰ é#şÿÿLCL‰$H‰D$è    é†ıÿÿ‰é	ıÿÿè    éûÿÿH      d
+  math/rand.Intn   ‚
+  time.Now   Ô
+  time.Now   Ä  >go.string."2016-01-02 15:04:05"   ê
+   time.Time.Format   ¤
+Ü  runtime.duffzero   Ì  .go.string."insert_type"   š
+è  runtime.duffcopy   ¨  (type.[1]interface {}   º
+  "runtime.newobject   ¦  "type."".ColResult   ä
+  runtime.convT2E   ® 6runtime.writeBarrierEnabled   š
+  *github/sola/db.Insert   Ş
+  "".CheckError   ì  &type.[]"".ColResult   ş
+  "runtime.newobject    	  (type.[0]"".ColResult   ²	
+  "runtime.newobject   ®
+ 6runtime.writeBarrierEnabled   â
+
+  &github/sola/db.Find   ¦  Jgopkg.in/mgo%2ev2.(*Session).CloseÂ·f   º
+  "runtime.deferproc   ö  (type.*[]"".ColResult   ¨
+  <gopkg.in/mgo%2ev2.(*Query).All   ü  &type.[]"".ColResult   º
+  runtime.convT2E   „ 6runtime.writeBarrierEnabled   è
+  fmt.Println   ô
+  &runtime.deferreturn   ¨
+  .runtime.writebarrierptr   Æ
+  &runtime.deferreturn   ò
+  .runtime.writebarrierptr   ®
+  .runtime.writebarrierptr   Ğ
+  0runtime.morestack_noctxt    °   "".autotmp_0017  "type.interface {} "".autotmp_0016 ï(type.[1]interface {} "".autotmp_0014  *type.*[1]interface {} "".autotmp_0013  &type.[]interface {} "".autotmp_0011 ¯&type.[]"".ColResult "".autotmp_0010 Ï"type.interface {} "".autotmp_0008 ÿ&type.[]interface {} "".autotmp_0007 Ï&type.[]"".ColResult "".autotmp_0005 Ÿ"type."".ColResult "".autotmp_0003 Ÿtype.time.Time "".autotmp_0002 ïtype.time.Time "".autotmp_0001 ¿type.int "".&list Ÿ(type.*[]"".ColResult "".query ¯:type.*gopkg.in/mgo%2ev2.Query "".err type.error "".result ¿"type."".ColResult &)°Ü¯°(¯°Q €	 V*)@Z Yßr&.à	 L 18óU["*„7‰W* TgclocalsÂ·fcf5af2016adf65a97b579a67730f1b6 TgclocalsÂ·64c3084feb6bf9c43f5a63383ef21ccb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş"".CheckError     šeH‹%(   H‹‰    HD$øH;A†d  Hìˆ   H‹œ$   Hƒû „  H    H‰\$@HÇD$H   1ÛH‰\$hH‰\$pH‰\$xH‰œ$€   H\$hHƒû „  HÇD$X   HÇD$`   H‰\$PH    H‰$H\$@H‰\$HÇD$    è    H‹L$H‹D$ H‹\$PH‰L$0H‰H‰D$8€=     …   H‰CH‹œ$   H‰$H‹œ$˜   H‰\$è    H‹L$H‹D$H‹\$PHƒÃH‰L$0H‰H‰D$8€=     u.H‰CH‹\$PH‰$H‹\$XH‰\$H‹\$`H‰\$è    HÄˆ   ÃLCL‰$H‰D$è    ëÂLCL‰$H‰D$è    é`ÿÿÿ‰éòşÿÿè    ésşÿÿ      v  "go.string."test:"     type.string   Ö
+  runtime.convT2E   š 6runtime.writeBarrierEnabled   ì
+  runtime.convI2E   ¸ 6runtime.writeBarrierEnabled   Š
+  fmt.Println   ¾
+  .runtime.writebarrierptr   æ
+  .runtime.writebarrierptr   ˆ
+  0runtime.morestack_noctxt      "".autotmp_0026  "type.interface {} "".autotmp_0025 ¯"type.interface {} "".autotmp_0024 ?(type.[2]interface {} "".autotmp_0021 o&type.[]interface {} "".autotmp_0020 type.string "".err  type.error &ª?  H&‘2  ªš2 TgclocalsÂ·7e902992778eda5f91d29a3f0c115aee TgclocalsÂ·592a07df8472ac3df953e7160b15f816   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş"".init  à  ÊeH‹%(   H‹‰    H;avH¶    €û t¶    €ûuÃè    Æ    è    è    è    è    è    Æ    Ãè    ë›      2  "".initdoneÂ·   J  "".initdoneÂ·   `
+  "runtime.throwinit   p "".initdoneÂ·   |
+  fmt.init   †
+  &github/sola/db.init   
+  2gopkg.in/mgo.v2/bson.init   š
+  math/rand.init   ¤
+  time.init   ° "".initdoneÂ·   ¾
+  0runtime.morestack_noctxt        p p Pp 
+ /A TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş.type..hash."".ColResult    ŠeH‹%(   H‹‰    H;a†!  Hƒì H‹\$(H‰$Hƒ<$ „ı   H‹\$0H‰\$è    H‹D$H‹\$(H‰$Hƒ<$ „É   Hƒ$H‰D$0H‰D$HÇD$   è    H‹D$H‹\$(H‰$Hƒ<$ „‡   Hƒ$H‰D$0H‰D$è    H‹D$H‹\$(H‰$Hƒ<$ tUHƒ$0H‰D$0H‰D$è    H‹D$H‹\$(H‰$Hƒ<$ t#Hƒ$@H‰D$0H‰D$è    H‹\$H‰\$8HƒÄ Ã‰%    ëÔ‰%    ë¢‰%    émÿÿÿ‰%    é+ÿÿÿ‰%    é÷şÿÿè    é»şÿÿ      z
+  runtime.strhash   æ
+  runtime.memhash   À
+  (type..hash.time.Time   ’
+  runtime.strhash   ä
+  runtime.strhash   ø
+  0runtime.morestack_noctxt   0@  "".~r2  type.uintptr "".h type.uintptr "".p  $type.*"".ColResult @æ?@K Ğ Ğ  <” TgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2 TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş*type..eq."".ColResult    eH‹%(   H‹‰    H;a†ä  HƒìhH‹\$pHƒû „Ê  H‹3H‹KH‹\$xHƒû „­  H‹H‹CH9Á…  H‰t$XH‰4$H‰L$`H‰L$H‰T$HH‰T$H‰D$PH‰D$è    H‹t$pH‹T$x¶\$ €û „L  H‹^H‹jH9ëtÆ„$€    HƒÄhÃH‰ñHƒÁH‰ĞHƒÀH‹H‹(H9ë…  ‹Y‹h9ë…ú   H‹YH‹hH9ë…é   H‰óH‹v0H‹K8H‰ÓH‹R0H‹C8H9Á…½   H‰t$8H‰4$H‰L$@H‰L$H‰T$(H‰T$H‰D$0H‰D$è    ¶\$ €û „ƒ   H‹\$pHƒû ttH‹S@H‹CHH‹\$xHƒû t]H‹s@H‹KHH9ÈuCH‰T$(H‰$H‰D$0H‰D$H‰t$8H‰t$H‰L$@H‰L$è    ¶\$ €û tÆ„$€   HƒÄhÃÆ„$€    HƒÄhÃ‰ëŸ‰ëˆÆ„$€    HƒÄhÃÆ„$€    HƒÄhÃÆ„$€    HƒÄhÃ‰éLşÿÿ‰é/şÿÿè    éøıÿÿ
+      ö
+   runtime.eqstring   è
+   runtime.eqstring   ²
+   runtime.eqstring   ş
+  0runtime.morestack_noctxt   0Ğ  "".autotmp_0034  type.string "".autotmp_0033  type.string "".autotmp_0032 type.string "".autotmp_0031 _type.string "".autotmp_0028 ?Dtype.gopkg.in/mgo.v2/bson.ObjectId "".autotmp_0027 Dtype.gopkg.in/mgo.v2/bson.ObjectId "".~r2  type.bool "".q $type.*"".ColResult "".p  $type.*"".ColResult XĞ’ÏĞ‚ÏĞÏĞÏĞÏĞÏĞ     z– TgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a TgclocalsÂ·895d0569a38a56443b84805daa09d838   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş4type..hash.[1]interface {} à  ØeH‹%(   H‹‰    H;a†ˆ   Hƒì(H‹L$81ÀHÇD$   H‹l$H9è}\H‰D$ H‰ÅH‰ÈHÁÀH»¿c»kïR H¯ØH‰ØH‹\$0Hƒû t;HÁåHëH‰$H‰D$8H‰D$è    H‹L$H‹D$ HÿÀH‹l$H9è|¤H‰L$@HƒÄ(Ã‰ëÁè    éTÿÿÿ      ò
+  (runtime.nilinterhash   Æ
+  0runtime.morestack_noctxt   0P  
+"".autotmp_0036 type.int "".autotmp_0035 type.int "".~r2  type.uintptr "".h type.uintptr "".p  *type.*[1]interface {} POP ° ° 
+ x8 TgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2 TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş0type..eq.[1]interface {} €  äeH‹%(   H‹‰    H;a†Î   HƒìX1ÀHÇD$(   H‹l$(H9è’   H‰D$0H‹\$hHƒû „–   H‰ÅHÁåHëH‹H‹sH‹\$`Hƒû tvH‰ÅHÁåHëH‹H‹SH9ÈuVH‰D$8H‰$H‰T$@H‰T$H‰L$HH‰L$H‰t$PH‰t$è    ¶\$ €û t H‹D$0HÿÀH‹l$(H9èŒnÿÿÿÆD$pHƒÄXÃÆD$p HƒÄXÃ‰ë†‰écÿÿÿè    éÿÿÿ      Ê
+  runtime.efaceeq   Ò
+  0runtime.morestack_noctxt   0°  "".autotmp_0040 ?"type.interface {} "".autotmp_0039 "type.interface {} "".autotmp_0038 _type.int "".autotmp_0037 Otype.int "".~r2  type.bool "".q *type.*[1]interface {} "".p  *type.*[1]interface {} &°´¯°	¯°# € €  ¤\ TgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a TgclocalsÂ·a8eabfc4a4514ed6b3b0c61e9680e440   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş4type..hash.[0]"".ColResult à  ØeH‹%(   H‹‰    H;a†ˆ   Hƒì(H‹L$81ÀHÇD$    H‹l$H9è}\H‰D$ H‰ÅH‰ÈHÁÀH»¿c»kïR H¯ØH‰ØH‹\$0Hƒû t;HkíPHëH‰$H‰D$8H‰D$è    H‹L$H‹D$ HÿÀH‹l$H9è|¤H‰L$@HƒÄ(Ã‰ëÁè    éTÿÿÿ      ò
+  .type..hash."".ColResult   Æ
+  0runtime.morestack_noctxt   0P  
+"".autotmp_0042 type.int "".autotmp_0041 type.int "".~r2  type.uintptr "".h type.uintptr "".p  *type.*[0]"".ColResult POP ° ° 
+ x8 TgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2 TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş0type..eq.[0]"".ColResult €  äeH‹%(   H‹‰    H;a†   Hƒì(1ÀHÇD$    H‹l$H9è}cH‰D$ H‹L$0Hƒù taH‹\$8H‰ÅHkíPHéHƒû tHH‰ÅHkíPHëH‰$H‰\$è    ¶\$€û u
+ÆD$@ HƒÄ(ÃH‹D$ HÿÀH‹l$H9è|ÆD$@HƒÄ(Ã‰ë´‰ë›è    éNÿÿÿ      Ø
+  *type..eq."".ColResult   Ò
+  0runtime.morestack_noctxt   0P  
+"".autotmp_0044 type.int "".autotmp_0043 type.int "".~r2  type.bool "".q *type.*[0]"".ColResult "".p  *type.*[0]"".ColResult PeOPOP  À À 
+ kU TgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş4type..hash.[2]interface {} à  ØeH‹%(   H‹‰    H;a†ˆ   Hƒì(H‹L$81ÀHÇD$   H‹l$H9è}\H‰D$ H‰ÅH‰ÈHÁÀH»¿c»kïR H¯ØH‰ØH‹\$0Hƒû t;HÁåHëH‰$H‰D$8H‰D$è    H‹L$H‹D$ HÿÀH‹l$H9è|¤H‰L$@HƒÄ(Ã‰ëÁè    éTÿÿÿ      ò
+  (runtime.nilinterhash   Æ
+  0runtime.morestack_noctxt   0P  
+"".autotmp_0048 type.int "".autotmp_0047 type.int "".~r2  type.uintptr "".h type.uintptr "".p  *type.*[2]interface {} POP ° ° 
+ x8 TgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2 TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goş0type..eq.[2]interface {} €  äeH‹%(   H‹‰    H;a†Î   HƒìX1ÀHÇD$(   H‹l$(H9è’   H‰D$0H‹\$hHƒû „–   H‰ÅHÁåHëH‹H‹sH‹\$`Hƒû tvH‰ÅHÁåHëH‹H‹SH9ÈuVH‰D$8H‰$H‰T$@H‰T$H‰L$HH‰L$H‰t$PH‰t$è    ¶\$ €û t H‹D$0HÿÀH‹l$(H9èŒnÿÿÿÆD$pHƒÄXÃÆD$p HƒÄXÃ‰ë†‰écÿÿÿè    éÿÿÿ      Ê
+  runtime.efaceeq   Ò
+  0runtime.morestack_noctxt   0°  "".autotmp_0052 ?"type.interface {} "".autotmp_0051 "type.interface {} "".autotmp_0050 _type.int "".autotmp_0049 Otype.int "".~r2  type.bool "".q *type.*[2]interface {} "".p  *type.*[2]interface {} &°´¯°	¯°# € €  ¤\ TgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a TgclocalsÂ·a8eabfc4a4514ed6b3b0c61e9680e440   ¢C:/Users/user/OneDrive/Documents/GoPath/project/src/github/sola/test/math_time.goşFgo.string.hdr."2016-01-02 15:04:05"                       >go.string."2016-01-02 15:04:05"   ş>go.string."2016-01-02 15:04:05" 0  (2016-01-02 15:04:05  ş6go.string.hdr."insert_type"                       .go.string."insert_type"   ş.go.string."insert_type"    insert_type  şTgclocalsÂ·64c3084feb6bf9c43f5a63383ef21ccb     	   +             @         Â     Â                0H      0@      0        şTgclocalsÂ·fcf5af2016adf65a97b579a67730f1b6   	        ş*go.string.hdr."test:"                       "go.string."test:"   ş"go.string."test:"   test:  şTgclocalsÂ·592a07df8472ac3df953e7160b15f816 (  (          ”  „   şTgclocalsÂ·7e902992778eda5f91d29a3f0c115aee (  (                şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           ş0"".initdoneÂ·  type.uint8   ş$"".DB_Mongo_RunÂ·f              "".DB_Mongo_Run   ş "".CheckErrorÂ·f              "".CheckError   ş"".initÂ·f              "".init   şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2             şTgclocalsÂ·895d0569a38a56443b84805daa09d838              şTgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a             ş6type..hashfunc."".ColResult              .type..hash."".ColResult   ş2type..eqfunc."".ColResult              *type..eq."".ColResult   ş,type..alg."".ColResult                        6type..hashfunc."".ColResult     2type..eqfunc."".ColResult   ş"runtime.gcbits.01    ş>go.string.hdr."*test.ColResult"                       6go.string."*test.ColResult"   ş6go.string."*test.ColResult"     *test.ColResult  ş$type.*"".ColResult                    sÛw 6                                                        0   runtime.algarray   @  "runtime.gcbits.01   P  >go.string.hdr."*test.ColResult"   p  6go.weak.type.**"".ColResult   €  "runtime.zerovalue     "type."".ColResult   ş&runtime.gcbits.6101   a ş<go.string.hdr."test.ColResult"                       4go.string."test.ColResult"   ş4go.string."test.ColResult"    test.ColResult  ş$go.string.hdr."ID"                       go.string."ID"   şgo.string."ID"   ID  şLgo.string.hdr."bson:\"_id,omitempty\""                       Dgo.string."bson:\"_id,omitempty\""   şDgo.string."bson:\"_id,omitempty\"" 0  *bson:"_id,omitempty"  ş"go.string.hdr."X"                       go.string."X"   şgo.string."X"   X  ş(go.string.hdr."Time"                        go.string."Time"   ş go.string."Time"   
+Time  şDgo.string.hdr."bson:\"timestamp\""                       <go.string."bson:\"timestamp\""   ş<go.string."bson:\"timestamp\"" 0  "bson:"timestamp"  ş0go.string.hdr."TimeUnit"                       (go.string."TimeUnit"   ş(go.string."TimeUnit"    TimeUnit  ş(go.string.hdr."Name"                        go.string."Name"   ş go.string."Name"   
+Name  ş:go.string.hdr."bson:\"type\""                       2go.string."bson:\"type\""   ş2go.string."bson:\"type\""    bson:"type"  ş2go.string.hdr."ColResult"             	          *go.string."ColResult"   ş*go.string."ColResult"    ColResult  ş@go.string.hdr."github/sola/test"                       8go.string."github/sola/test"   ş8go.string."github/sola/test" 0  "github/sola/test  ş"go.importpath."".                       8go.string."github/sola/test"   ş"type."".ColResult      P       H       •ı@                                                                                                                                                                                                                             0                                       @                                               .0  ,type..alg."".ColResult   @  &runtime.gcbits.6101   P  <go.string.hdr."test.ColResult"   p  $type.*"".ColResult   €  "runtime.zerovalue   À "type."".ColResult   À  $go.string.hdr."ID"   à  Dtype.gopkg.in/mgo.v2/bson.ObjectId   ğ  Lgo.string.hdr."bson:\"_id,omitempty\""     "go.string.hdr."X"   °  type.int   à  (go.string.hdr."Time"   €  type.time.Time     Dgo.string.hdr."bson:\"timestamp\""   °  0go.string.hdr."TimeUnit"   Ğ  type.string   €  (go.string.hdr."Name"      type.string   °  :go.string.hdr."bson:\"type\""   `Ğ "type."".ColResult   Ğ  2go.string.hdr."ColResult"   à  "go.importpath."".   ğ  "type."".ColResult   ş"runtime.gcbits.03    ş8go.string.hdr."interface {}"                       0go.string."interface {}"   ş0go.string."interface {}"    interface {}  ş"type.interface {} À  À              çW                                                                          0€  runtime.algarray   @  "runtime.gcbits.03   P  8go.string.hdr."interface {}"   p  4go.weak.type.*interface {}   €  "runtime.zerovalue   À "type.interface {}   ş<go.string.hdr."[]interface {}"                       4go.string."[]interface {}"   ş4go.string."[]interface {}"    []interface {}  ş&type.[]interface {}                   p“ê/                                                         0   runtime.algarray   @  "runtime.gcbits.01   P  <go.string.hdr."[]interface {}"   p  8go.weak.type.*[]interface {}   €  "runtime.zerovalue     "type.interface {}   şRgo.typelink.[]interface {}	[]interface {}              &type.[]interface {}   şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2             şTgclocalsÂ·a8eabfc4a4514ed6b3b0c61e9680e440              şTgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a             ş<type..hashfunc.[1]interface {}              4type..hash.[1]interface {}   ş8type..eqfunc.[1]interface {}              0type..eq.[1]interface {}   ş2type..alg.[1]interface {}                        <type..hashfunc.[1]interface {}     8type..eqfunc.[1]interface {}   ş>go.string.hdr."[1]interface {}"                       6go.string."[1]interface {}"   ş6go.string."[1]interface {}"     [1]interface {}  ş(type.[1]interface {} À  À              P‘[ú                                                                        0  2type..alg.[1]interface {}   @  "runtime.gcbits.03   P  >go.string.hdr."[1]interface {}"   p  :go.weak.type.*[1]interface {}   €  "runtime.zerovalue     "type.interface {}      &type.[]interface {}   şVgo.typelink.[1]interface {}	[1]interface {}              (type.[1]interface {}   ş@go.string.hdr."[]test.ColResult"                       8go.string."[]test.ColResult"   ş8go.string."[]test.ColResult" 0  "[]test.ColResult  ş&type.[]"".ColResult                   £ci                                                         0   runtime.algarray   @  "runtime.gcbits.01   P  @go.string.hdr."[]test.ColResult"   p  8go.weak.type.*[]"".ColResult   €  "runtime.zerovalue     "type."".ColResult   şVgo.typelink.[]test.ColResult	[]"".ColResult              &type.[]"".ColResult   şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2             şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a             ş<type..hashfunc.[0]"".ColResult              4type..hash.[0]"".ColResult   ş8type..eqfunc.[0]"".ColResult              0type..eq.[0]"".ColResult   ş2type..alg.[0]"".ColResult                        <type..hashfunc.[0]"".ColResult     8type..eqfunc.[0]"".ColResult   şruntime.gcbits.      şBgo.string.hdr."[0]test.ColResult"                       :go.string."[0]test.ColResult"   ş:go.string."[0]test.ColResult" 0  $[0]test.ColResult  ş(type.[0]"".ColResult À  À                »álÄ ‘                                                                        0  2type..alg.[0]"".ColResult   @  runtime.gcbits.   P  Bgo.string.hdr."[0]test.ColResult"   p  :go.weak.type.*[0]"".ColResult   €  "runtime.zerovalue     "type."".ColResult      &type.[]"".ColResult   şZgo.typelink.[0]test.ColResult	[0]"".ColResult              (type.[0]"".ColResult   şBgo.string.hdr."*[]test.ColResult"                       :go.string."*[]test.ColResult"   ş:go.string."*[]test.ColResult" 0  $*[]test.ColResult  ş(type.*[]"".ColResult                   1ìr- 6                                                        0   runtime.algarray   @  "runtime.gcbits.01   P  Bgo.string.hdr."*[]test.ColResult"   p  :go.weak.type.**[]"".ColResult   €  "runtime.zerovalue     &type.[]"".ColResult   ş@go.string.hdr."*[1]interface {}"                       8go.string."*[1]interface {}"   ş8go.string."*[1]interface {}" 0  "*[1]interface {}  ş*type.*[1]interface {}                   ¿¨5 6                                                        0   runtime.algarray   @  "runtime.gcbits.01   P  @go.string.hdr."*[1]interface {}"   p  <go.weak.type.**[1]interface {}   €  "runtime.zerovalue     (type.[1]interface {}   şDgo.string.hdr."*[0]test.ColResult"                       <go.string."*[0]test.ColResult"   ş<go.string."*[0]test.ColResult" 0  &*[0]test.ColResult  ş*type.*[0]"".ColResult                   <Ûùr 6                                                        0   runtime.algarray   @  "runtime.gcbits.01   P  Dgo.string.hdr."*[0]test.ColResult"   p  <go.weak.type.**[0]"".ColResult   €  "runtime.zerovalue     (type.[0]"".ColResult   şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·0b86ef39f3fed835f14ba5f4d7c62fa2             şTgclocalsÂ·a8eabfc4a4514ed6b3b0c61e9680e440              şTgclocalsÂ·3bb21ca8fe1d99a3e492463bd711418a             ş<type..hashfunc.[2]interface {}              4type..hash.[2]interface {}   ş8type..eqfunc.[2]interface {}              0type..eq.[2]interface {}   ş2type..alg.[2]interface {}                        <type..hashfunc.[2]interface {}     8type..eqfunc.[2]interface {}   ş"runtime.gcbits.0f    ş>go.string.hdr."[2]interface {}"                       6go.string."[2]interface {}"   ş6go.string."[2]interface {}"     [2]interface {}  ş(type.[2]interface {} À  À                ,Y¤ñ                                                                        0  2type..alg.[2]interface {}   @  "runtime.gcbits.0f   P  >go.string.hdr."[2]interface {}"   p  :go.weak.type.*[2]interface {}   €  "runtime.zerovalue     "type.interface {}      &type.[]interface {}   şVgo.typelink.[2]interface {}	[2]interface {}              (type.[2]interface {}   ş@go.string.hdr."*[2]interface {}"                       8go.string."*[2]interface {}"   ş8go.string."*[2]interface {}" 0  "*[2]interface {}  ş*type.*[2]interface {}                   ¾s-q 6                                                        0   runtime.algarray   @  "runtime.gcbits.01   P  @go.string.hdr."*[2]interface {}"   p  <go.weak.type.**[2]interface {}   €  "runtime.zerovalue     (type.[2]interface {}   ş.go.string.hdr."runtime"                       &go.string."runtime"   ş&go.string."runtime"   runtime  ş,go.importpath.runtime.                       &go.string."runtime"   ş&go.string.hdr."fmt"                       go.string."fmt"   şgo.string."fmt"   fmt  ş$go.importpath.fmt.                       go.string."fmt"   ş<go.string.hdr."github/sola/db"                       4go.string."github/sola/db"   ş4go.string."github/sola/db"    github/sola/db  ş:go.importpath.github/sola/db.                       4go.string."github/sola/db"   ş(go.string.hdr."time"                        go.string."time"   ş go.string."time"   
+time  ş&go.importpath.time.                        go.string."time"   şHgo.string.hdr."gopkg.in/mgo.v2/bson"                       @go.string."gopkg.in/mgo.v2/bson"   ş@go.string."gopkg.in/mgo.v2/bson" 0  *gopkg.in/mgo.v2/bson  şFgo.importpath.gopkg.in/mgo.v2/bson.                       @go.string."gopkg.in/mgo.v2/bson"   ş2go.string.hdr."math/rand"             	          *go.string."math/rand"   ş*go.string."math/rand"    math/rand  ş0go.importpath.math/rand.             	          *go.string."math/rand"   ş4type..hash."".ColResultÂ·f              .type..hash."".ColResult   ş0type..eq."".ColResultÂ·f              *type..eq."".ColResult   ş:type..hash.[1]interface {}Â·f              4type..hash.[1]interface {}   ş6type..eq.[1]interface {}Â·f              0type..eq.[1]interface {}   ş:type..hash.[0]"".ColResultÂ·f              4type..hash.[0]"".ColResult   ş6type..eq.[0]"".ColResultÂ·f              0type..eq.[0]"".ColResult   ş:type..hash.[2]interface {}Â·f              4type..hash.[2]interface {}   ş6type..eq.[2]interface {}Â·f              0type..eq.[2]interface {}   ş"runtime.zerovalue      ÿÿgo13ld 
